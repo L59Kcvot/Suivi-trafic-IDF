@@ -46,7 +46,19 @@
     return counts;
   }
 
-  // ---------- Menu principal (logos cliquables) ----------
+  function logoHTML(mode, code, color, text, big) {
+    const sizeClass = big ? "line-logo-big" : "line-logo";
+    const round = mode === "metro" ? " round" : "";
+    const src = `assets/logos/${mode}/${code}.svg`;
+    return `
+      <span class="logo-wrap ${sizeClass}">
+        <img src="${src}" class="logo-img" alt="Ligne ${code}"
+             onload="this.nextElementSibling.style.display='none'"
+             onerror="this.style.display='none'">
+        <span class="${sizeClass}${round}" style="background:${color}; color:${text}">${code}</span>
+      </span>`;
+  }
+
 
   function renderLinesMenu() {
     const menu = el("lines-menu");
@@ -74,13 +86,12 @@
 
     const lines = state.lines[state.mode] || [];
     const counts = countByLine(state.mode);
-    const round = state.mode === "metro";
 
     for (const line of lines) {
       const btn = document.createElement("button");
       btn.className = "line-card";
       btn.innerHTML = `
-        <span class="line-logo ${round ? "round" : ""}" style="background:${line.color}; color:${line.text}">${line.code}</span>
+        ${logoHTML(state.mode, line.code, line.color, line.text, false)}
         <span class="line-card-text">
           <span class="line-card-code">Ligne ${line.code}</span>
           <span class="line-card-count">${counts[line.code] || 0} incident(s)</span>
@@ -114,11 +125,8 @@
     const detail = el("line-detail");
     detail.classList.remove("hidden");
 
-    el("detail-logo").style.background = line.color;
-    el("detail-logo").style.color = line.text;
-    el("detail-logo").textContent = line.code;
-    el("detail-title").textContent = `Ligne ${line.code}`;
-    el("detail-subtitle").textContent = line.name || "";
+    el("line-detail-header").innerHTML = logoHTML(mode, line.code, line.color, line.text, true) +
+      `<div><h2 id="detail-title">Ligne ${line.code}</h2><p id="detail-subtitle" class="detail-subtitle">${line.name || ""}</p></div>`;
 
     const incidents = incidentsForLine(mode, line.code);
 
