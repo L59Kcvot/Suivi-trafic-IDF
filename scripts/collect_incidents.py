@@ -24,7 +24,7 @@ from pathlib import Path
 
 API_URL = (
     "https://prim.iledefrance-mobilites.fr/marketplace/v2/navitia/"
-    "line_reports/line_reports?count=1000"
+    "line_reports/line_reports?count=1000&depth=2"
 )
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -120,51 +120,50 @@ def main() -> int:
         return 1
 
     payload = fetch_line_reports(api_key)
-
-    # La réponse Navitia renvoie deux listes à croiser :
-    # - "disruptions" : le détail de chaque perturbation (id, cause, sévérité, période...)
-    # - "line_reports" : pour chaque ligne, les identifiants de perturbations qui la concernent
-    disruptions_by_id = {d["id"]: d for d in payload.get("disruptions", [])}
-    line_reports = payload.get("line_reports", [])
+    disruptions = payload.get("disruptions", [])
 
     history = load_history()
     now_iso = datetime.now(timezone.utc).isoformat()
 
     seen_this_run = set()
+    lines_matched = 0
 
-    for report in line_reports:
-        line = report.get("line") or {}
-        line_code = line.get("code") or line.get("name") or "?"
-        line_name = line.get("name") or line_code
-        mode = normalize_mode(line.get("physical_modes"))
+    for disruption in disruptions:
+        dis_id = disruption.get("id")
+        if not dis_id:
+            continue
 
-        disruption_ids = [d.get("id") for d in report.get("pt_objects", [])] or []
-        # Certaines versions de l'API listent les ids directement sur le rapport
-        disruption_ids += report.get("disruption_ids", []) or []
+        raw_cause = disruption.get("cause") or ""
+        severity = (disruption.get("severity") or {}).get("name", "Information")
+        messages = disruption.get("messages") or []
+        title = ""
+        for m in messages:
+            text = (m.get("text") or "").strip()
+            if text:
+                title = text[:200]
+                break
 
-        for dis_id in set(disruption_ids):
-            disruption = disruptions_by_id.get(dis_id)
-            if not disruption:
+        cause = refine_category(raw_cause, title)
+
+        application_periods = disruption.get("application_periods") or []
+        period_start = application_periods[0].get("begin") if application_periods else None
+        period_end = application_periods[0].get("end") if application_periods else None
+
+        # Chaque perturbation référence les objets qu'elle impacte
+        # (lignes, arrêts...). On ne garde que les objets de type "line".
+        for impacted in disruption.get("impacted_objects", []) or []:
+            pt_object = impacted.get("pt_object") or {}
+            if pt_object.get("embedded_type") != "line":
                 continue
+
+            line_info = pt_object.get("line") or {}
+            line_code = line_info.get("code") or pt_object.get("name") or "?"
+            line_name = line_info.get("name") or pt_object.get("name") or line_code
+            mode = normalize_mode(line_info.get("physical_modes"))
+            lines_matched += 1
 
             key = f"{line_code}__{dis_id}"
             seen_this_run.add(key)
-
-            raw_cause = disruption.get("cause") or ""
-            severity = (disruption.get("severity") or {}).get("name", "Information")
-            messages = disruption.get("messages") or []
-            title = ""
-            for m in messages:
-                text = (m.get("text") or "").strip()
-                if text:
-                    title = text[:200]
-                    break
-
-            cause = refine_category(raw_cause, title)
-
-            application_periods = disruption.get("application_periods") or []
-            period_start = application_periods[0].get("begin") if application_periods else None
-            period_end = application_periods[0].get("end") if application_periods else None
 
             existing = history["incidents"].get(key)
             if existing:
@@ -191,7 +190,11 @@ def main() -> int:
     history["last_updated"] = now_iso
     save_history(history)
 
-    print(f"OK. {len(seen_this_run)} perturbations actives vues, {len(history['incidents'])} au total dans l'historique.")
+    print(
+        f"OK. {len(disruptions)} perturbation(s) brutes reçues, "
+        f"{lines_matched} association(s) ligne/perturbation, "
+        f"{len(history['incidents'])} au total dans l'historique."
+    )
     return 0
 
 
