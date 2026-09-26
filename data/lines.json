@@ -1,0 +1,58 @@
+{
+  "metro": [
+    { "code": "1",  "name": "La Défense ↔ Château de Vincennes", "color": "#FFCE00", "text": "#1a1a1a" },
+    { "code": "2",  "name": "Porte Dauphine ↔ Nation",            "color": "#0064B0", "text": "#ffffff" },
+    { "code": "3",  "name": "Pont de Levallois ↔ Gallieni",       "color": "#9F9825", "text": "#ffffff" },
+    { "code": "3B", "name": "Porte des Lilas ↔ Gambetta",         "color": "#98D4E2", "text": "#1a1a1a" },
+    { "code": "4",  "name": "Porte de Clignancourt ↔ Bagneux",    "color": "#C04191", "text": "#ffffff" },
+    { "code": "5",  "name": "Bobigny ↔ Place d'Italie",           "color": "#F28E42", "text": "#1a1a1a" },
+    { "code": "6",  "name": "Charles de Gaulle-Étoile ↔ Nation",  "color": "#83C491", "text": "#1a1a1a" },
+    { "code": "7",  "name": "La Courneuve ↔ Villejuif/Mairie d'Ivry", "color": "#A0006E", "text": "#ffffff" },
+    { "code": "7B", "name": "Louis Blanc ↔ Pré-Saint-Gervais",    "color": "#82C8E6", "text": "#1a1a1a" },
+    { "code": "8",  "name": "Balard ↔ Pointe du Lac",             "color": "#CEADD2", "text": "#1a1a1a" },
+    { "code": "9",  "name": "Pont de Sèvres ↔ Mairie de Montreuil","color": "#D5C900", "text": "#1a1a1a" },
+    { "code": "10", "name": "Boulogne ↔ Gare d'Austerlitz",       "color": "#E3B32A", "text": "#1a1a1a" },
+    { "code": "11", "name": "Châtelet ↔ Rosny-Bois-Perrier",      "color": "#8D5E2A", "text": "#ffffff" },
+    { "code": "12", "name": "Front Populaire ↔ Mairie d'Issy",    "color": "#00814F", "text": "#ffffff" },
+    { "code": "13", "name": "Châtillon ↔ Saint-Denis/Asnières",   "color": "#98D4E2", "text": "#1a1a1a" },
+    { "code": "14", "name": "Saint-Denis Pleyel ↔ Orly",          "color": "#662483", "text": "#ffffff" }
+  ],
+  "rer": [
+    { "code": "A", "name": "Saint-Germain/Cergy/Poissy ↔ Boissy/Marne-la-Vallée", "color": "#E2231A", "text": "#ffffff" },
+    { "code": "B", "name": "CDG/Mitry ↔ Robinson/Saint-Rémy", "color": "#7BA3DC", "text": "#1a1a1a" },
+    { "code": "C", "name": "Pontoise/Versailles ↔ Massy/Dourdan", "color": "#FFCE00", "text": "#1a1a1a" },
+    { "code": "D", "name": "Orry-la-Ville ↔ Melun/Malesherbes",  "color": "#00A88F", "text": "#ffffff" },
+    { "code": "E", "name": "Nanterre/Mantes ↔ Tournan/Chelles",  "color": "#C05283", "text": "#ffffff" }
+  ],
+  "transilien": [
+    { "code": "H", "name": "Paris Nord ↔ Persan/Pontoise/Luzarches", "color": "#8F1D6E", "text": "#ffffff" },
+    { "code": "J", "name": "Paris Saint-Lazare ↔ Mantes/Gisors",     "color": "#88C4E8", "text": "#1a1a1a" },
+    { "code": "K", "name": "Paris Nord ↔ Crépy-en-Valois",           "color": "#D9A441", "text": "#1a1a1a" },
+    { "code": "L", "name": "Paris Saint-Lazare ↔ Cergy/Versailles",  "color": "#8850A0", "text": "#ffffff" },
+    { "code": "N", "name": "Paris Montparnasse ↔ Dreux/Mantes",     "color": "#00874F", "text": "#ffffff" },
+    { "code": "P", "name": "Paris Est ↔ Meaux/Provins/Château-Thierry", "color": "#F19E53", "text": "#1a1a1a" },
+    { "code": "R", "name": "Paris Lyon ↔ Montereau/Montargis",      "color": "#9A3F73", "text": "#ffffff" },
+    { "code": "U", "name": "La Défense ↔ La Verrière",              "color": "#B4CE3A", "text": "#1a1a1a" }
+  ],
+  "tram": [
+    { "code": "T1",  "name": "Noisy-le-Sec ↔ Asnières-Gennevilliers", "color": "#00A88F", "text": "#ffffff" },
+    { "code": "T2",  "name": "Pont de Bezons ↔ Porte de Versailles",  "color": "#0064B0", "text": "#ffffff" },
+    { "code": "T3A", "name": "Pont du Garigliano ↔ Porte de Vincennes", "color": "#C9A227", "text": "#1a1a1a" },
+    { "code": "T3B", "name": "Porte de Vincennes ↔ Porte d'Asnières", "color": "#8D5E2A", "text": "#ffffff" },
+    { "code": "T4",  "name": "Bondy ↔ Gargan/Aulnay",                 "color": "#F28E42", "text": "#1a1a1a" },
+    { "code": "T5",  "name": "Saint-Denis ↔ Garges-Sarcelles",        "color": "#A0006E", "text": "#ffffff" },
+    { "code": "T6",  "name": "Châtillon ↔ Viroflay",                  "color": "#83C491", "text": "#1a1a1a" },
+    { "code": "T7",  "name": "Villejuif ↔ Athis-Mons",                "color": "#662483", "text": "#ffffff" },
+    { "code": "T8",  "name": "Saint-Denis ↔ Villetaneuse/Épinay",     "color": "#CEADD2", "text": "#1a1a1a" },
+    { "code": "T9",  "name": "Porte de Choisy ↔ Orly-Ville",          "color": "#D5C900", "text": "#1a1a1a" },
+    { "code": "T10", "name": "Antony ↔ Clamart",                     "color": "#00814F", "text": "#ffffff" },
+    { "code": "T11", "name": "Épinay ↔ Le Bourget",                  "color": "#98D4E2", "text": "#1a1a1a" },
+    { "code": "T12", "name": "Massy ↔ Évry",                         "color": "#E3B32A", "text": "#1a1a1a" },
+    { "code": "T13", "name": "Saint-Cyr ↔ Saint-Germain-en-Laye",     "color": "#5091CB", "text": "#ffffff" }
+  ],
+  "bus": {
+    "note": "Trop de lignes de bus (>1000) pour un menu à logos. L'app propose une recherche par numéro à la place.",
+    "color": "#0064B0",
+    "text": "#ffffff"
+  }
+}

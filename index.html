@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Incidents Transports Franciliens</title>
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.4/chart.umd.min.js"></script>
+</head>
+<body>
+
+<header class="app-header">
+  <h1>🚇 Incidents Transports Franciliens</h1>
+  <p class="subtitle">Suivi, historique et statistiques des perturbations — Métro, RER, Transilien, Tramway, Bus</p>
+  <p class="last-update" id="last-update">Chargement des données…</p>
+</header>
+
+<nav class="mode-tabs" id="mode-tabs">
+  <button class="mode-tab active" data-mode="metro">Métro</button>
+  <button class="mode-tab" data-mode="rer">RER</button>
+  <button class="mode-tab" data-mode="transilien">Transilien</button>
+  <button class="mode-tab" data-mode="tram">Tramway</button>
+  <button class="mode-tab" data-mode="bus">Bus</button>
+  <button class="mode-tab" data-mode="classement">📊 Classement</button>
+</nav>
+
+<main>
+
+  <!-- Menu des lignes (logos cliquables) -->
+  <section id="lines-menu" class="lines-menu"></section>
+
+  <!-- Recherche spécifique pour les bus -->
+  <section id="bus-search" class="bus-search hidden">
+    <input type="text" id="bus-search-input" placeholder="Numéro de bus (ex: 38, 91, N15…)">
+  </section>
+
+  <!-- Détail d'une ligne sélectionnée -->
+  <section id="line-detail" class="line-detail hidden">
+    <div class="line-detail-header">
+      <span class="line-logo-big" id="detail-logo"></span>
+      <div>
+        <h2 id="detail-title"></h2>
+        <p id="detail-subtitle" class="detail-subtitle"></p>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <div class="card">
+        <h3>Répartition des types d'incidents</h3>
+        <canvas id="pie-chart" height="260"></canvas>
+        <p class="empty-note hidden" id="pie-empty">Aucun incident enregistré pour cette ligne pour le moment.</p>
+      </div>
+
+      <div class="card">
+        <h3>Historique récent</h3>
+        <ul id="incident-list" class="incident-list"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- Classement global -->
+  <section id="ranking" class="ranking hidden">
+    <h2>Classement des lignes les plus perturbées</h2>
+    <p class="detail-subtitle">Nombre total d'incidents distincts enregistrés depuis le début de la collecte.</p>
+    <table class="ranking-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Ligne</th>
+          <th>Mode</th>
+          <th>Incidents</th>
+          <th>Incident le plus fréquent</th>
+        </tr>
+      </thead>
+      <tbody id="ranking-body"></tbody>
+    </table>
+  </section>
+
+</main>
+
+<footer class="app-footer">
+  <p>
+    Données : API PRIM — Île-de-France Mobilités. Ce projet n'est ni édité ni affilié à Île-de-France Mobilités, la RATP ou la SNCF.
+  </p>
+</footer>
+
+<script src="js/app.js"></script>
+</body>
+</html>
